@@ -15,10 +15,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Campo obrigatório")
     private String name;
 
-    @NotBlank
-    @Pattern(regexp =  "^[A-Z].*")
+    @NotBlank(message = "Campo obrigatório")
+    @Pattern(regexp =  "^[A-Z].*", message = "Deve começar com maiúscula")
     private String icon;
 }
