@@ -2,6 +2,7 @@ package br.com.fiap.cash_up_api.controllers;
 
 import br.com.fiap.cash_up_api.models.Category;
 import br.com.fiap.cash_up_api.repositories.CategoryRepository;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class CategoryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Category create(@RequestBody Category category){
+    public Category create(@RequestBody @Valid Category category){
         log.info("Criando categoria");
         return repository.save(category);
     }
@@ -49,7 +50,7 @@ public class CategoryController {
     }
 
     @PutMapping("{id}")
-    public Category update(@PathVariable Long id, @RequestBody Category category){
+    public Category update(@PathVariable Long id, @RequestBody @Valid Category category){
         log.info("Alterando categoria");
         repository.delete(getCategory(id));
         category.setId(id);
