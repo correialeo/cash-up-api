@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
-@EnableCaching
+//@EnableCaching
 @OpenAPIDefinition(info = @Info(title = "Cash Up API", version = "v1", description = "API do projeto cash up",
 		contact = @Contact(name = "Leandro Correia", email = "leandro@cashup.com")))
 public class App {

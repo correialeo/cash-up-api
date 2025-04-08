@@ -62,13 +62,14 @@ public class DatabaseSeeder {
 
         var transactions = new ArrayList< Transaction >();
         for (int i = 0; i<50; i++){
+            transactions.add(
             Transaction.builder()
                     .description(descriptions.get(new Random().nextInt(descriptions.size())))
                     .amount(BigDecimal.valueOf(new Random().nextDouble() * 500))
                     .date(LocalDate.now().minusDays(new Random().nextInt(30)))
                     .type(ETransactionType.EXPENSE)
                     .category(categories.get(new Random().nextInt(categories.size())))
-                    .build();
+                    .build());
 
         }
         transactionRepository.saveAll(transactions);

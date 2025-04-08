@@ -28,7 +28,7 @@ public class CategoryController {
     private CategoryRepository repository;
 
     @GetMapping
-    @Cacheable
+    // @Cacheable
     @Operation(description = "Get all categories",
     tags = "category", summary = "Categories list")
     public List<Category> index(){
@@ -37,7 +37,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    @CacheEvict(value = "category", allEntries = true)
+//    @CacheEvict(value = "category", allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(responses = {
             @ApiResponse(responseCode = "400", description = "Validation error")
