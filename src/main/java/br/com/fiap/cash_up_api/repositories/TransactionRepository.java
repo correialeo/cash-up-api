@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    @Query("SELECT t FROM Transaction t")
     List<Transaction> findByDescription(String description);
 }
