@@ -2,10 +2,14 @@ package br.com.fiap.cash_up_api.controllers;
 
 import br.com.fiap.cash_up_api.models.Category;
 import br.com.fiap.cash_up_api.repositories.CategoryRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +28,20 @@ public class CategoryController {
     private CategoryRepository repository;
 
     @GetMapping
+    @Cacheable
+    @Operation(description = "Get all categories",
+    tags = "category", summary = "Categories list")
     public List<Category> index(){
         log.info("Buscando todas as categorias");
         return repository.findAll();
     }
 
     @PostMapping
+    @CacheEvict(value = "category", allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(responses = {
+            @ApiResponse(responseCode = "400", description = "Validation error")
+    })
     public Category create(@RequestBody @Valid Category category){
         log.info("Criando categoria");
         return repository.save(category);
