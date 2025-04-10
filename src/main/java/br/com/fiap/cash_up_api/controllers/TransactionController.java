@@ -5,14 +5,15 @@ import br.com.fiap.cash_up_api.repositories.TransactionRepository;
 import br.com.fiap.cash_up_api.specification.TransationSpecification;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/transaction")
@@ -25,10 +26,10 @@ public class TransactionController {
     private TransactionRepository repository;
 
     @GetMapping
-    public List<Transaction> index(TransactionFilter filter)
+    public Page<Transaction> index(TransactionFilter filter, @PageableDefault(size = 10, sort = "date", direction = Sort.Direction.DESC) Pageable pageable)
     {
         Specification<Transaction> specification = TransationSpecification.withFilters(filter);
-        return repository.findAll(specification);
+        return repository.findAll(specification, pageable);
     }
 
 
