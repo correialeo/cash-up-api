@@ -20,7 +20,14 @@ public class TransationSpecification {
                         )
                 );
             }
-            return predicates.get(0);
+
+            if (filter.startDate() != null && filter.endDate() != null){
+                predicates.add(
+                        builder.between(root.get("date"), filter.startDate(), filter.endDate())
+                );
+            }
+
+            return builder.and(predicates.toArray(new Predicate[0]));
         };
     }
 }
