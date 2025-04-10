@@ -27,6 +27,12 @@ public class TransationSpecification {
                 );
             }
 
+            if (filter.startDate() != null && filter.endDate() == null){
+                predicates.add(
+                        builder.equal(root.get("date"), filter.startDate())
+                );
+            }
+
             return builder.and(predicates.toArray(new Predicate[0]));
         };
     }
